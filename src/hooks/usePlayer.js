@@ -11,11 +11,11 @@ const usePlayer = () => {
         collision: false,
     })
     
-    const updatePlayerPos = ({x, y, collision}) => {
+    const updatePlayerPos = ({x, y, collision}) => {        
         setPlayer(prevState => ({
             ...prevState,
             pos: { x : (prevState.pos.x + x), y : (prevState.pos.y + y)} ,
-            collision,
+            collision : collision,
         }));
     }
     

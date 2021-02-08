@@ -60,22 +60,31 @@ const Tetris = () => {
         setDropTime(1000);
         setScore(0);
         setRows(0);
+        setLevel(0);
     }
 
     const drop = () => {
         if (!checkColision(player, stage, 0, 1)) {
-            updatePlayerPos({x:0 , y: 1, collision: false})
+            updatePlayerPos({x:0 , y: 1, collision: false});
         } else {   
             if (player.pos.y == 0) {
                 setGameOver(true);
                 setDropTime(null);
             }         
-            updatePlayerPos({x:0 , y: 0, collision: true})            
-            console.log(score, rows, level, dropTime, player.collision);
+            updatePlayerPos({x:0 , y: 0, collision: true});                                       
         }
+        if (Math.ceil(score/1000) > (level + 1)){
+            setLevel(prev => prev + 1);
+            // console.log(Math.ceil(score/1000) + ' es mayor que ' + (level + 1))            
+        }
+        if (level < 10)
+            setDropTime(Math.ceil(1000 - (level * (0.1) * 1000)));   
+        else
+            setDropTime(Math.ceil(100 - (level * (0.01) * 100)));   
     }
 
     const dropPlayer = () => {
+        setDropTime(null);
         drop();
     }
     
